@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Debre Markos Institute of Technology</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1a5c2e;
+    --gold: #c8a84b;
+    --light: #f5f2eb;
+    --dark: #0f1f14;
+    --mid: #2d7a45;
+    --text: #2a2a2a;
+    --card-bg: #ffffff;
+    --border: #ddd5c0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--light);
+    color: var(--text);
+  }
+
+  /* ===== HEADER ===== */
+  header {
+    background: var(--green);
+    color: white;
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.3);
+  }
+  .header-top {
+    background: var(--dark);
+    padding: 8px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--gold);
+    letter-spacing: 1px;
+  }
+  .header-main {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 14px 40px;
+  }
+  .logo-circle {
+    width: 64px;
+    height: 64px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--dark);
+    flex-shrink: 0;
+    border: 3px solid white;
+  }
+  .header-text h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .header-text p {
+    font-size: 12px;
+    color: #a8c8b4;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+  nav {
+    background: var(--mid);
+    padding: 0 40px;
+    display: flex;
+    gap: 0;
+    align-items: center;
+  }
+  nav a {
+    color: white;
+    text-decoration: none;
+    padding: 12px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: background 0.2s;
+    cursor: pointer;
+  }
+  nav a:hover, nav a.active { background: rgba(255,255,255,0.15); }
+  .admin-btn {
+    margin-left: auto;
+    background: var(--gold) !important;
+    color: var(--dark) !important;
+    font-weight: 700 !important;
+    border-radius: 4px 4px 0 0;
+  }
+  .admin-btn:hover { background: #e0bc5c !important; }
+
+  /* ===== PAGE SECTIONS ===== */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: linear-gradient(135deg, var(--dark) 0%, var(--green) 60%, var(--mid) 100%);
+    color: white;
+    padding: 80px 40px;
+    position: relative;
+    overflow: hidden;
+    min-height: 340px;
+    display: flex;
+    align-items: center;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: rgba(200,168,75,0.12);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: 20%;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .hero-content { position: relative; max-width: 700px; }
+  .hero-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 46px;
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 18px;
+  }
+  .hero-content h2 span { color: var(--gold); }
+  .hero-content p { font-size: 17px; color: #c8dfd0; line-height: 1.7; max-width: 560px; }
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    margin-top: 36px;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--gold);
+  }
+  .stat-label { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: #a8c8b4; margin-top: 4px; }
+
+  /* ===== MAIN CONTENT ===== */
+  .content-area {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 48px 40px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+  }
+
+  /* ===== NEWS SECTION ===== */
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--green);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .news-list { display: flex; flex-direction: column; gap: 20px; }
+  .news-card {
+    background: white;
+    border-radius: 8px;
+    padding: 24px;
+    border-left: 5px solid var(--green);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: fadeIn 0.4s ease;
+  }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+  .news-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+  .news-card .category {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: var(--dark);
+    padding: 3px 10px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  .news-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+  .news-card p { font-size: 14px; color: #555; line-height: 1.7; margin-bottom: 12px; }
+  .news-meta { font-size: 12px; color: #888; display: flex; gap: 16px; }
+  .news-meta span::before { margin-right: 4px; }
+
+  /* ===== SIDEBAR ===== */
+  .sidebar { display: flex; flex-direction: column; gap: 28px; }
+  .sidebar-card {
+    background: white;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  }
+  .sidebar-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--green);
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border);
+  }
+  .event-item {
+    display: flex;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0ebe0;
+  }
+  .event-item:last-child { border-bottom: none; }
+  .event-date {
+    background: var(--green);
+    color: white;
+    border-radius: 6px;
+    padding: 6px 10px;
+    text-align: center;
+    min-width: 46px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .event-date .day { font-size: 20px; line-height: 1; }
+  .event-info h4 { font-size: 13px; font-weight: 600; color: var(--dark); }
+  .event-info p { font-size: 12px; color: #888; margin-top: 2px; }
+  .link-list { list-style: none; }
+  .link-list li { padding: 8px 0; border-bottom: 1px solid #f0ebe0; }
+  .link-list li:last-child { border-bottom: none; }
+  .link-list a {
+    color: var(--mid);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .link-list a::before { content: '›'; font-size: 18px; color: var(--gold); }
+  .link-list a:hover { color: var(--green); }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--dark);
+    color: #a8c8b4;
+    padding: 40px;
+    margin-top: 40px;
+  }
+  .footer-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px;
+  }
+  footer h4 { color: var(--gold); font-family: 'Playfair Display', serif; font-size: 16px; margin-bottom: 12px; }
+  footer p, footer li { font-size: 13px; line-height: 1.8; }
+  footer ul { list-style: none; }
+  footer a { color: #a8c8b4; text-decoration: none; }
+  footer a:hover { color: var(--gold); }
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 24px auto 0;
+    padding-top: 16px;
+    border-top: 1px solid #2d4a35;
+    font-size: 12px;
+    text-align: center;
+    color: #5a7a62;
+  }
+
+  /* ===== ADMIN PAGE ===== */
+  .admin-page { display: none; background: #f0ede5; min-height: 100vh; }
+  .admin-page.active { display: block; }
+  .admin-header {
+    background: var(--dark);
+    color: white;
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .admin-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--gold);
+  }
+  .admin-header .back-btn {
+    margin-left: auto;
+    background: var(--mid);
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .admin-header .back-btn:hover { background: var(--green); }
+
+  .admin-container {
+    max-width: 1100px;
+    margin: 36px auto;
+    padding: 0 32px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  .admin-form-card, .admin-news-list-card {
+    background: white;
+    border-radius: 10px;
+    padding: 32px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+  .admin-form-card h3, .admin-news-list-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--green);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid var(--gold);
+  }
+
+  .form-group { margin-bottom: 18px; }
+  .form-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 6px;
+  }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    padding: 11px 14px;
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: #fafaf7;
+    outline: none;
+    transition: border 0.2s, background 0.2s;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    border-color: var(--mid);
+    background: white;
+  }
+  .form-group textarea { resize: vertical; min-height: 110px; }
+  .submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--green);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    margin-top: 8px;
+  }
+  .submit-btn:hover { background: var(--mid); transform: translateY(-1px); }
+  .submit-btn:active { transform: translateY(0); }
+  .success-msg {
+    display: none;
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 14px;
+    text-align: center;
+    border: 1px solid #a5d6a7;
+  }
+
+  /* Admin news list */
+  .admin-news-item {
+    padding: 14px 0;
+    border-bottom: 1px solid #f0ebe0;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    animation: fadeIn 0.4s ease;
+  }
+  .admin-news-item:last-child { border-bottom: none; }
+  .admin-news-item .item-info { flex: 1; }
+  .admin-news-item .item-title { font-size: 14px; font-weight: 700; color: var(--dark); }
+  .admin-news-item .item-meta { font-size: 12px; color: #888; margin-top: 3px; }
+  .delete-btn {
+    background: none;
+    border: 1px solid #e0b0b0;
+    color: #c0392b;
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .delete-btn:hover { background: #fdecea; }
+  .empty-state {
+    text-align: center;
+    padding: 30px;
+    color: #aaa;
+    font-size: 14px;
+  }
+
+  /* Admin login */
+  .login-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10,20,13,0.88);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  .login-box {
+    background: white;
+    border-radius: 12px;
+    padding: 44px 40px;
+    width: 360px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    text-align: center;
+  }
+  .login-box .logo-lg {
+    width: 72px; height: 72px;
+    background: var(--green);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: var(--gold);
+    font-weight: 900;
+    margin: 0 auto 20px;
+  }
+  .login-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--dark);
+    margin-bottom: 6px;
+  }
+  .login-box p { font-size: 13px; color: #888; margin-bottom: 24px; }
+  .login-box input {
+    width: 100%;
+    padding: 11px 14px;
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 12px;
+    outline: none;
+    font-family: 'Source Sans 3', sans-serif;
+    transition: border 0.2s;
+  }
+  .login-box input:focus { border-color: var(--mid); }
+  .login-box button {
+    width: 100%;
+    padding: 13px;
+    background: var(--green);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 0.5px;
+    transition: background 0.2s;
+  }
+  .login-box button:hover { background: var(--mid); }
+  .login-error {
+    color: #c0392b;
+    font-size: 13px;
+    margin-top: 10px;
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== LOGIN OVERLAY ===== -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <div class="logo-lg">DM</div>
+    <h3>Admin Login</h3>
+    <p>Enter credentials to access the admin panel</p>
+    <input type="text" id="loginUser" placeholder="Username" />
+    <input type="password" id="loginPass" placeholder="Password" />
+    <button onclick="doLogin()">Login</button>
+    <div class="login-error" id="loginError">Invalid username or password.</div>
+    <div style="margin-top:14px;">
+      <a href="#" onclick="cancelLogin()" style="font-size:12px;color:#888;text-decoration:none;">← Back to website</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== HEADER ===== -->
+<header id="siteHeader">
+  <div class="header-top">
+    <span>📍 Debre Markos, Ethiopia</span>
+    <span>✉ info@dmit.edu.et &nbsp;|&nbsp; 📞 +251 (058) 771-2345</span>
+  </div>
+  <div class="header-main">
+    <div class="logo-circle">DM</div>
+    <div class="header-text">
+      <h1>Debre Markos Institute of Technology</h1>
+      <p>Excellence in Engineering &amp; Technology</p>
+    </div>
+  </div>
+  <nav>
+    <a class="active" onclick="showPage('home')">Home</a>
+    <a onclick="showPage('about')">About</a>
+    <a onclick="showPage('academics')">Academics</a>
+    <a onclick="showPage('news')">News</a>
+    <a onclick="showPage('contact')">Contact</a>
+    <a class="admin-btn" onclick="openAdmin()">⚙ Admin Panel</a>
+  </nav>
+</header>
+
+<!-- ===== PUBLIC SITE ===== -->
+<div id="publicSite">
+
+  <!-- HOME PAGE -->
+  <div id="homePage" class="page active">
+    <div class="hero">
+      <div class="hero-content">
+        <h2>Shaping the <span>Future</span><br>of Technology in Ethiopia</h2>
+        <p>A leading institution committed to producing world-class engineers, innovators, and technology leaders for Ethiopia and beyond.</p>
+        <div class="hero-stats">
+          <div class="stat"><div class="stat-num">12+</div><div class="stat-label">Departments</div></div>
+          <div class="stat"><div class="stat-num">3,500+</div><div class="stat-label">Students</div></div>
+          <div class="stat"><div class="stat-num">200+</div><div class="stat-label">Faculty</div></div>
+          <div class="stat"><div class="stat-num">Est. 1999</div><div class="stat-label">Founded</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-area">
+      <div>
+        <div class="section-title">📰 Latest News</div>
+        <div class="news-list" id="homeNewsList">
+          <!-- populated by JS -->
+        </div>
+      </div>
+      <div class="sidebar">
+        <div class="sidebar-card">
+          <h3>📅 Upcoming Events</h3>
+          <div class="event-item">
+            <div class="event-date"><div class="day">25</div>AUG</div>
+            <div class="event-info"><h4>Freshmen Orientation</h4><p>Main Hall, 9:00 AM</p></div>
+          </div>
+          <div class="event-item">
+            <div class="event-date"><div class="day">01</div>SEP</div>
+            <div class="event-info"><h4>Semester Registration</h4><p>Registrar Office</p></div>
+          </div>
+          <div class="event-item">
+            <div class="event-date"><div class="day">15</div>SEP</div>
+            <div class="event-info"><h4>Research Symposium</h4><p>Science Block, 10:00 AM</p></div>
+          </div>
+        </div>
+        <div class="sidebar-card">
+          <h3>🔗 Quick Links</h3>
+          <ul class="link-list">
+            <li><a href="#">Student Portal</a></li>
+            <li><a href="#">E-Learning Platform</a></li>
+            <li><a href="#">Library Catalogue</a></li>
+            <li><a href="#">Course Registration</a></li>
+            <li><a href="#">Exam Results</a></li>
+            <li><a href="#">Staff Directory</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-card">
+          <h3>📢 Notice Board</h3>
+          <ul class="link-list">
+            <li><a href="#">Scholarship Announcements</a></li>
+            <li><a href="#">Internship Opportunities</a></li>
+            <li><a href="#">Academic Calendar 2018</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT PAGE -->
+  <div id="aboutPage" class="page">
+    <div class="hero" style="min-height:200px; padding:50px 40px;">
+      <div class="hero-content">
+        <h2>About <span>DMIT</span></h2>
+        <p>Our history, mission and values.</p>
+      </div>
+    </div>
+    <div style="max-width:800px; margin:48px auto; padding:0 40px; line-height:1.9; font-size:15px; color:#333;">
+      <h2 style="font-family:'Playfair Display',serif; color:var(--green); margin-bottom:16px;">Our Mission</h2>
+      <p>Debre Markos Institute of Technology is dedicated to providing high-quality, accessible education in engineering, natural science, and technology disciplines, empowering graduates to drive economic and social development in Ethiopia.</p>
+      <h2 style="font-family:'Playfair Display',serif; color:var(--green); margin:32px 0 16px;">Our Vision</h2>
+      <p>To be a center of excellence in technological education and research, recognized at national and international levels for producing innovative, ethical, and competent graduates.</p>
+    </div>
+  </div>
+
+  <!-- ACADEMICS PAGE -->
+  <div id="academicsPage" class="page">
+    <div class="hero" style="min-height:200px; padding:50px 40px;">
+      <div class="hero-content">
+        <h2><span>Academics</span></h2>
+        <p>Explore our programs and departments.</p>
+      </div>
+    </div>
+    <div style="max-width:900px; margin:48px auto; padding:0 40px;">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+        <div style="background:white;border-radius:8px;padding:24px;border-top:4px solid var(--green);box-shadow:0 2px 8px rgba(0,0,0,.07);">
+          <h3 style="font-family:'Playfair Display',serif;color:var(--green);margin-bottom:8px;">Computer Science &amp; IT</h3>
+          <p style="font-size:14px;color:#555;line-height:1.7;">Software engineering, networking, database systems, and cloud computing.</p>
+        </div>
+        <div style="background:white;border-radius:8px;padding:24px;border-top:4px solid var(--green);box-shadow:0 2px 8px rgba(0,0,0,.07);">
+          <h3 style="font-family:'Playfair Display',serif;color:var(--green);margin-bottom:8px;">Electrical Engineering</h3>
+          <p style="font-size:14px;color:#555;line-height:1.7;">Power systems, electronics, communications, and control engineering.</p>
+        </div>
+        <div style="background:white;border-radius:8px;padding:24px;border-top:4px solid var(--green);box-shadow:0 2px 8px rgba(0,0,0,.07);">
+          <h3 style="font-family:'Playfair Display',serif;color:var(--green);margin-bottom:8px;">Civil Engineering</h3>
+          <p style="font-size:14px;color:#555;line-height:1.7;">Structural, geotechnical, environmental, and construction management.</p>
+        </div>
+        <div style="background:white;border-radius:8px;padding:24px;border-top:4px solid var(--green);box-shadow:0 2px 8px rgba(0,0,0,.07);">
+          <h3 style="font-family:'Playfair Display',serif;color:var(--green);margin-bottom:8px;">Mechanical Engineering</h3>
+          <p style="font-size:14px;color:#555;line-height:1.7;">Manufacturing, thermal systems, mechanics, and design engineering.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEWS PAGE -->
+  <div id="newsPage" class="page">
+    <div class="hero" style="min-height:200px; padding:50px 40px;">
+      <div class="hero-content">
+        <h2>News &amp; <span>Announcements</span></h2>
+        <p>Stay updated with the latest from DMIT.</p>
+      </div>
+    </div>
+    <div style="max-width:900px; margin:48px auto; padding:0 40px;">
+      <div class="news-list" id="fullNewsList"></div>
+    </div>
+  </div>
+
+  <!-- CONTACT PAGE -->
+  <div id="contactPage" class="page">
+    <div class="hero" style="min-height:200px; padding:50px 40px;">
+      <div class="hero-content">
+        <h2>Contact <span>Us</span></h2>
+        <p>We'd love to hear from you.</p>
+      </div>
+    </div>
+    <div style="max-width:700px; margin:48px auto; padding:0 40px; font-size:15px; line-height:2;">
+      <div style="background:white;border-radius:8px;padding:32px;box-shadow:0 2px 8px rgba(0,0,0,.07);">
+        <p>📍 <strong>Address:</strong> Debre Markos, Amhara Region, Ethiopia</p>
+        <p>📞 <strong>Phone:</strong> +251 (058) 771-2345</p>
+        <p>✉ <strong>Email:</strong> info@dmit.edu.et</p>
+        <p>🌐 <strong>Website:</strong> www.dmit.edu.et</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <h4>Debre Markos Institute of Technology</h4>
+        <p>Committed to excellence in engineering and technology education since 1999.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul><li><a href="#">Admissions</a></li><li><a href="#">Research</a></li><li><a href="#">Library</a></li><li><a href="#">Alumni</a></li></ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <p>Debre Markos, Amhara Region<br>Ethiopia<br>info@dmit.edu.et</p>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2018 Debre Markos Institute of Technology. All rights reserved.</div>
+  </footer>
+</div><!-- end publicSite -->
+
+<!-- ===== ADMIN PAGE ===== -->
+<div id="adminSite" style="display:none;">
+  <div class="admin-header">
+    <div class="logo-circle" style="width:42px;height:42px;font-size:15px;">DM</div>
+    <h2>DMIT Admin Panel — News Management</h2>
+    <button class="back-btn" onclick="exitAdmin()">← Back to Website</button>
+  </div>
+
+  <div class="admin-container">
+    <!-- ADD NEWS FORM -->
+    <div class="admin-form-card">
+      <h3>➕ Add New Article</h3>
+      <div class="form-group">
+        <label>News Title *</label>
+        <input type="text" id="newsTitle" placeholder="Enter the news headline..." />
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <select id="newsCategory">
+          <option value="Academic">Academic</option>
+          <option value="Research">Research</option>
+          <option value="Events">Events</option>
+          <option value="Administration">Administration</option>
+          <option value="Sports">Sports</option>
+          <option value="General">General</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Content / Summary *</label>
+        <textarea id="newsContent" placeholder="Write the news content here..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Author Name</label>
+        <input type="text" id="newsAuthor" placeholder="e.g. Public Relations Office" />
+      </div>
+      <button class="submit-btn" onclick="addNews()">Publish Article →</button>
+      <div class="success-msg" id="successMsg">✅ Article published successfully!</div>
+    </div>
+
+    <!-- EXISTING NEWS LIST -->
+    <div class="admin-news-list-card">
+      <h3>📋 All Published Articles <span id="newsCount" style="font-size:14px;font-family:'Source Sans 3',sans-serif;color:#888;font-weight:400;"></span></h3>
+      <div id="adminNewsList"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ===== DATA =====
+  let newsItems = [
+    {
+      id: 1,
+      title: "DMIT Launches New Software Engineering Laboratory",
+      category: "Academic",
+      content: "The Institute has officially opened a state-of-the-art Software Engineering Laboratory equipped with 60 modern workstations, supporting courses in cloud computing, database management, and web development.",
+      author: "Public Relations Office",
+      date: "August 10, 2018"
+    },
+    {
+      id: 2,
+      title: "Annual Research Symposium Scheduled for September",
+      category: "Research",
+      content: "DMIT will host its 5th Annual Research Symposium on September 15, inviting students and faculty to present ongoing research projects in engineering, IT, and natural sciences.",
+      author: "Research Department",
+      date: "August 5, 2018"
+    },
+    {
+      id: 3,
+      title: "New Semester Registration Opens August 29",
+      category: "Administration",
+      content: "All continuing students are reminded that second semester registration begins on August 29, 2018. Students must clear any outstanding fees before registration.",
+      author: "Registrar Office",
+      date: "August 1, 2018"
+    }
+  ];
+  let nextId = 4;
+
+  // ===== NAVIGATION =====
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+    document.getElementById(name + 'Page').classList.add('active');
+    renderNews();
+    window.scrollTo(0, 0);
+  }
+
+  // ===== ADMIN LOGIN =====
+  const ADMIN_USER = 'admin';
+  const ADMIN_PASS = 'dmit2018';
+  let loginTarget = null;
+
+  function openAdmin() {
+    loginTarget = 'admin';
+    document.getElementById('loginOverlay').style.display = 'flex';
+    document.getElementById('loginUser').value = '';
+    document.getElementById('loginPass').value = '';
+    document.getElementById('loginError').style.display = 'none';
+  }
+
+  function cancelLogin() {
+    document.getElementById('loginOverlay').style.display = 'none';
+    loginTarget = null;
+  }
+
+  function doLogin() {
+    const u = document.getElementById('loginUser').value.trim();
+    const p = document.getElementById('loginPass').value.trim();
+    if (u === ADMIN_USER && p === ADMIN_PASS) {
+      document.getElementById('loginOverlay').style.display = 'none';
+      document.getElementById('siteHeader').style.display = 'none';
+      document.getElementById('publicSite').style.display = 'none';
+      document.getElementById('adminSite').style.display = 'block';
+      renderAdminList();
+    } else {
+      document.getElementById('loginError').style.display = 'block';
+    }
+  }
+
+  document.getElementById('loginPass').addEventListener('keydown', e => {
+    if (e.key === 'Enter') doLogin();
+  });
+
+  function exitAdmin() {
+    document.getElementById('siteHeader').style.display = 'block';
+    document.getElementById('publicSite').style.display = 'block';
+    document.getElementById('adminSite').style.display = 'none';
+    renderNews();
+  }
+
+  // ===== RENDER NEWS (PUBLIC) =====
+  function renderNews() {
+    const homeList = document.getElementById('homeNewsList');
+    const fullList = document.getElementById('fullNewsList');
+    const topThree = newsItems.slice(-3).reverse();
+    const all = [...newsItems].reverse();
+
+    homeList.innerHTML = topThree.map(n => newsCard(n)).join('');
+    fullList.innerHTML = all.map(n => newsCard(n)).join('');
+  }
+
+  function newsCard(n) {
+    return `<div class="news-card">
+      <span class="category">${n.category}</span>
+      <h3>${n.title}</h3>
+      <p>${n.content}</p>
+      <div class="news-meta">
+        <span>📅 ${n.date}</span>
+        <span>✍ ${n.author}</span>
+      </div>
+    </div>`;
+  }
+
+  // ===== RENDER ADMIN LIST =====
+  function renderAdminList() {
+    const container = document.getElementById('adminNewsList');
+    const count = document.getElementById('newsCount');
+    count.textContent = `(${newsItems.length})`;
+    if (newsItems.length === 0) {
+      container.innerHTML = '<div class="empty-state">No articles yet. Add your first news above!</div>';
+      return;
+    }
+    container.innerHTML = [...newsItems].reverse().map(n => `
+      <div class="admin-news-item" id="item-${n.id}">
+        <div class="item-info">
+          <div class="item-title">${n.title}</div>
+          <div class="item-meta">${n.category} · ${n.date} · ${n.author}</div>
+        </div>
+        <button class="delete-btn" onclick="deleteNews(${n.id})">Delete</button>
+      </div>
+    `).join('');
+  }
+
+  // ===== ADD NEWS =====
+  function addNews() {
+    const title = document.getElementById('newsTitle').value.trim();
+    const content = document.getElementById('newsContent').value.trim();
+    const category = document.getElementById('newsCategory').value;
+    const author = document.getElementById('newsAuthor').value.trim() || 'DMIT Communications';
+
+    if (!title || !content) {
+      alert('Please fill in the title and content fields.');
+      return;
+    }
+
+    const now = new Date();
+    const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const dateStr = `${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
+
+    newsItems.push({ id: nextId++, title, category, content, author, date: dateStr });
+
+    // Clear form
+    document.getElementById('newsTitle').value = '';
+    document.getElementById('newsContent').value = '';
+    document.getElementById('newsAuthor').value = '';
+
+    // Show success
+    const msg = document.getElementById('successMsg');
+    msg.style.display = 'block';
+    setTimeout(() => msg.style.display = 'none', 3000);
+
+    renderAdminList();
+  }
+
+  // ===== DELETE NEWS =====
+  function deleteNews(id) {
+    if (!confirm('Are you sure you want to delete this article?')) return;
+    newsItems = newsItems.filter(n => n.id !== id);
+    renderAdminList();
+  }
+
+  // ===== INIT =====
+  document.getElementById('loginOverlay').style.display = 'none';
+  renderNews();
+</script>
+</body>
+</html>
